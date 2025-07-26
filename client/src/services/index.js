@@ -16,8 +16,12 @@ export async function loginService(formData) {
 }
 
 export async function checkAuthService() {
-  const { data } = await axiosInstance.get("/auth/check-auth");
-
+  const accessToken = JSON.parse(sessionStorage.getItem("accessToken"));
+  const { data } = await axiosInstance.get("/auth/check-auth", {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
   return data;
 }
 
